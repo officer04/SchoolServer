@@ -22,6 +22,11 @@ app.use('/cours', coursRouter);
 app.use('/module', moduleRouter);
 app.use('/lesson', lessonRoute);
 app.use('/user', userCoursRouter);
+app.get("/hello", (req, res) => {
+  var ip = req.headers['x-forwarded-for']
+  console.log(`Request from ${ip}`);
+  return res.send("Hello!");
+});
 
 const start = async () => {
   try {
