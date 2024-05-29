@@ -1,7 +1,5 @@
 FROM node:16-slim
 
-EXPOSE 89
-
 # Запуск проекта
 WORKDIR /app
 COPY package*.json ./
