@@ -11,10 +11,7 @@ module.exports = (req, res, next) => {
     const token = req.headers["auth_token"];
 
     console.log(req.headers);
-    console.info(JSON.stringify(req.headers));
-
-
-
+    
     if (!token) {
       return res.status(401).json({ message: 'Пользователь не авторизован' });
     }
@@ -23,7 +20,7 @@ module.exports = (req, res, next) => {
     req.user = decoderData;
     next();
   } catch (e) {
-    console.log(e);
+    console.error(e);
     return res.status(401).json({ message: 'Пользователь не авторизован' });
   }
 };

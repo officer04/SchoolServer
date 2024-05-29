@@ -7,7 +7,7 @@ const controller = require('../controllers/lessonController');
 // router.post('/cours', roleMiddleware(['ADMIN']), controller.create);
 router.post('/', controller.create);
 router.delete('/:id', controller.remove);
-// router.get('/', controller.getAll);
+router.patch('/:id', controller.update);
 router.get('/:id', controller.getLesson);
 router.get('/details/:id', controller.getLessonOne);
 

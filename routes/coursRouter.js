@@ -9,6 +9,7 @@ router.post('/', controller.create);
 router.delete('/:id', controller.remove);
 router.patch('/:id', controller.update);
 router.get('/student', authMiddleware, controller.getCoursesUser);
+router.get('/admin/:id', controller.getCoursesUserAdmin);
 router.get('', authMiddleware, controller.getAll);
 router.get('/:id', controller.getOneCours);
 

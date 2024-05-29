@@ -17,6 +17,7 @@ class LessonController {
       const doc = new Lesson({
         title: req.body.title,
         moduleId: req.body.moduleId,
+        progress: false,
         lessonNumber: req.body.lessonNumber,
         youtubeVideoId: req.body.youtubeVideoId,
       });
@@ -49,31 +50,29 @@ class LessonController {
     }
   }
 
-  // async update(req, res) {
-  //   try {
-  //     const postId = req.params.id;
+  async update(req, res) {
+    try {
+      const lessonId = req.params.id;
 
-  //     const post = await Cours.findOneAndUpdate(
-  //       {
-  //         _id: postId,
-  //       },
-  //       {
-  //         title: req.body.title,
-  //         price: req.body.price,
-  //         description: req.body.description,
-  //       },
-  //       { new: true },
-  //     );
-  //     if (!post) return res.status(404).json({ message: 'Нет такой карты с ценой' });
+      const lesson = await Lesson.findOneAndUpdate(
+        {
+          _id: lessonId,
+        },
+        {
+          progress: true,
+        },
+        { new: true },
+      );
+      if (!lesson) return res.status(404).json({ message: 'Нет такого урока' });
 
-  //     res.json(post);
-  //   } catch (err) {
-  //     console.log(err);
-  //     return res.status(500).json({
-  //       message: 'Не удалось получить карту с ценой',
-  //     });
-  //   }
-  // }
+      res.json(lesson);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({
+        message: 'Не удалось обновить урок',
+      });
+    }
+  }
 
   async getLesson(req, res) {
     try {
@@ -85,15 +84,19 @@ class LessonController {
       const moduleTitle = module.title;
       const coursInfo = { title: cours.title, coursId: cours._id };
 
+      const progress = lessons.filter((lesson) => lesson.progress === true)
+
+
       lessons.sort((a, b) => a.lessonNumber - b.lessonNumber);
 
       const response = {
         moduleTitle,
         coursInfo,
         lessons,
+        progress: progress
       };
 
-      res.status(200).json(response);
+      return res.status(200).json(response);
     } catch (e) {
       console.log(e);
       return res.status(500).json({

@@ -4,6 +4,7 @@ const Lesson = new Schema({
   title: { type: String, required: true },
   lessonNumber: { type: Number, require: true},
   moduleId: { type: Schema.Types.ObjectId },
+  progress: { type: Boolean },
   youtubeVideoId: { type: String, require: true },
 });
 
