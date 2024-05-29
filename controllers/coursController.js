@@ -93,6 +93,23 @@ class CoursController {
     }
   }
 
+  
+  async getCoursesUserAdmin(req, res) {
+    try {
+      const userId = req.params.id;
+      const userCours = await UserCours.find({ userId });
+      const courdId = userCours.map((item) => item.coursId);
+      // const cours = await Cours.find({ _id: courdId });
+
+      res.status(200).json(courdId);
+      // res.status(200).json({message: "Норм"})
+    } catch (e) {
+      return res.status(500).json({
+        message: 'Не удалось получить курсы',
+      });
+    }
+  }
+
   async getAll(req, res) {
     try {
       const courses = await Cours.find();

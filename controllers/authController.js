@@ -40,7 +40,46 @@ class AuthController {
       const user = new User({ username, email, password: hashPassword, role: role.title });
       await user.save();
       const token = generateAccessToken(user._id, user.role, user.username, user.email);
-      return res.json({ token });
+
+      let transporter = nodemailer.createTransport(
+        {
+          host: 'smtp.mail.ru',
+          port: 465,
+          secure: true,
+          auth: {
+            user: 'kodemania@mail.ru',
+            pass: 'TXw4ZmrecDAXpu95Z15V',
+          },
+        },
+        { from: '<kodemania@mail.ru>' },
+      );
+
+      const emailObject = {
+        // from: '"Node js" <nodejs@example.com>',
+        to: user.email,
+        subject: 'Оповещение об успешной регистрации',
+        text: 'Покупка курса',
+        html: ` <div style=" font-size: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center">
+        <div>
+          <hr />
+          <p><b style="font-size: 20px">Привет, ${user.username}.</b></p>
+          <p style="font-size: 16px">
+            Поздравляем! Ваша учетная запись на сайте "Кодемания" была успешно создана. <br />
+          </p>
+          <p style="margin-bottom: 15px; font-size: 20px;">Теперь у вас есть доступ к нашим услугам и функциям. Мы рады приветствовать вас в нашем сообществе! <br/>
+          Спасибо за регистрацию на нашем сайте. Желаем вам приятного использования наших услуг! <br/></p>
+          <p styles="font-size: 20px;> С уважением, Команда "Кодемания"</p>
+          <hr />
+        </div>
+      </div>`,
+      };
+
+      await transporter.sendMail(emailObject);
+
+      return res.status(201).json({ token });
     } catch (e) {
       res.status(400).json({ message: 'Registration error' });
     }
@@ -60,6 +99,7 @@ class AuthController {
       }
 
       const token = generateAccessToken(user._id, user.role, user.username, user.email);
+
       return res.json({ token });
     } catch (e) {
       res.status(500).json({ message: 'Login error' });
@@ -135,11 +175,11 @@ class AuthController {
           port: 465,
           secure: true,
           auth: {
-            user: 'kadet_2003@list.ru',
-            pass: 'RPQZ1D9urSixcGZEhu3k',
+            user: 'kodemania@mail.ru',
+            pass: 'TXw4ZmrecDAXpu95Z15V',
           },
         },
-        { from: '<kadet_2003@list.ru>' },
+        { from: '<kodemania@mail.ru>' },
       );
 
       const emailObject = {
@@ -155,8 +195,8 @@ class AuthController {
           <hr />
           <p><b style="font-size: 20px">Привет, ${user.username}</b></p>
           <p style="font-size: 16px">
-            Ты получил это электронное письмо, потому что ты или кто-то еще запросил пароль для <br />
-            твоей учетной записи. Его можно смело игнорировать, если ты не запрашивал сброс пароля.
+            Вы получил это электронное письмо, потому что вы или кто-то еще запросил пароль для <br />
+            вашей учетной записи. Его можно смело игнорировать, если вы не запрашивал сброс пароля.
           </p>
           <p style="font-size: 16px">Нажми <a href="http://localhost:3000/auth/reset-password/${doc._id}">на ссылку</a>,
           чтобы сбросить пароль</p>
@@ -169,11 +209,13 @@ class AuthController {
 
       res.status(201).json('');
     } catch (e) {
-      res.status(500).json({ message: 'Error change' });
+      console.log(e);
+      res.status(500).json({ message: 'Произошла ошибка на сервере, попробуйте позже' });
     }
   }
 
   async reset(req, res) {
+    console.log('dsfdsf');
     try {
       const requestId = req.params.requestId;
       const body = req.body;
@@ -207,7 +249,7 @@ class AuthController {
 
   async removeUser(req, res) {
     try {
-      console.log(req.params.userId)
+      console.log(req.params.userId);
       const userId = req.params.userId;
 
       // const user = await User.findOneAndDelete({
