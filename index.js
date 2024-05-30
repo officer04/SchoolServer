@@ -12,7 +12,7 @@ const cors = require('cors');
 const PORT = process.env.PORT || 5000;
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: '*', methods: '*', allowedHeaders: '*' }));
 
 app.use(express.json());
 app.use('/auth', authRouter);
@@ -22,10 +22,10 @@ app.use('/cours', coursRouter);
 app.use('/module', moduleRouter);
 app.use('/lesson', lessonRoute);
 app.use('/user', userCoursRouter);
-app.get("/hello", (req, res) => {
-  var ip = req.headers['x-forwarded-for']
+app.get('/hello', (req, res) => {
+  var ip = req.headers['x-forwarded-for'];
   console.log(`Request from ${ip}`);
-  return res.send("Hello!");
+  return res.send('Hello!');
 });
 
 const start = async () => {

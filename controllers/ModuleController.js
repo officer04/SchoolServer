@@ -1,4 +1,5 @@
 const Module = require('../models/Module.js');
+const Lesson = require('../models/Lesson.js');
 
 class ModuleController {
   async create(req, res) {
@@ -65,7 +66,7 @@ class ModuleController {
     try {
       const moduleId = req.params.id;
       const module = await Module.findOne({ _id: moduleId });
-      console.log(module)
+      console.log(module);
       res.status(200).json(module);
     } catch (e) {
       console.log(e);
@@ -79,7 +80,9 @@ class ModuleController {
     try {
       const coursId = req.params.id;
       const modules = await Module.find({ coursId: coursId });
-
+      const modulesId = modules.map((module) => module._id);
+      const prosress = await Lesson.find({ moduleId: modulesId });
+      // modules.map((module) => )
       res.status(200).json(modules);
     } catch (e) {
       console.log(e);

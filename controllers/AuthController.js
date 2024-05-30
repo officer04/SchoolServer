@@ -65,13 +65,13 @@ class AuthController {
         align-items: center">
         <div>
           <hr />
-          <p><b style="font-size: 20px">Привет, ${user.username}.</b></p>
+          <p><b style="font-size: 20px">Дорогой ученик, ${user.username}.</b></p>
           <p style="font-size: 16px">
             Поздравляем! Ваша учетная запись на сайте "Кодемания" была успешно создана. <br />
           </p>
-          <p style="margin-bottom: 15px; font-size: 20px;">Теперь у вас есть доступ к нашим услугам и функциям. Мы рады приветствовать вас в нашем сообществе! <br/>
+          <p style="margin-bottom: 15px; font-size: 16px;">Теперь у вас есть доступ к нашим услугам и функциям. Мы рады приветствовать вас в нашем сообществе! <br/>
           Спасибо за регистрацию на нашем сайте. Желаем вам приятного использования наших услуг! <br/></p>
-          <p styles="font-size: 20px;> С уважением, Команда "Кодемания"</p>
+          <p style="font-size: 16px;"> С уважением, Команда "Кодемания"</p>
           <hr />
         </div>
       </div>`,
@@ -185,7 +185,7 @@ class AuthController {
       const emailObject = {
         // from: '"Node js" <nodejs@example.com>',
         to: user.email,
-        subject: '"Кодемания" Письмо для сброса пароля',
+        subject: 'Письмо для сброса пароля',
         text: 'Смена пароля',
         html: ` <div style=" font-size: 20px;
         display: flex;
@@ -193,13 +193,14 @@ class AuthController {
         align-items: center">
         <div>
           <hr />
-          <p><b style="font-size: 20px">Привет, ${user.username}</b></p>
+          <p><b style="font-size: 20px">Дорогой студент, ${user.username}</b></p>
           <p style="font-size: 16px">
-            Вы получил это электронное письмо, потому что вы или кто-то еще запросил пароль для <br />
-            вашей учетной записи. Его можно смело игнорировать, если вы не запрашивал сброс пароля.
+          Получили запрос на восстановление пароля от вашего аккаунта в нашей онлайн школе. <br/> 
+          Для восстановления доступа к вашему аккаунту, пожалуйста, перейдите по следующей ссылке: <a href="http://localhost:3000/auth/reset-password/${doc._id}">восстановление</a>.
           </p>
-          <p style="font-size: 16px">Нажми <a href="http://localhost:3000/auth/reset-password/${doc._id}">на ссылку</a>,
-          чтобы сбросить пароль</p>
+          <p style="font-size: 16px; margin-bottom: 15px;">Если вы не запрашивали восстановление пароля, пожалуйста, проигнорируйте это сообщение. <br/>
+           Как меру безопасности рекомендуем также изменить пароль после восстановления доступа к аккаунту.</p>
+           <p style="font-size: 16px;"> С уважением, Команда "Кодемания"</p>
           <hr />
         </div>
       </div>`,

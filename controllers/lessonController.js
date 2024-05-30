@@ -50,7 +50,7 @@ class LessonController {
     }
   }
 
-  async update(req, res) {
+  async updateProgress(req, res) {
     try {
       const lessonId = req.params.id;
 
@@ -69,7 +69,33 @@ class LessonController {
     } catch (err) {
       console.log(err);
       return res.status(500).json({
-        message: 'Не удалось обновить урок',
+        message: 'Не удалось обновить прогресс',
+      });
+    }
+  }
+
+  async update(req, res) {
+    try {
+      const lessonId = req.params.id;
+
+      const lesson = await Lesson.findOneAndUpdate(
+        {
+          _id: lessonId,
+        },
+        {
+          title: req.body.title,
+          lessonNumber: req.body.lessonNumber,
+          youtubeVideoId: req.body.youtubeVideoId
+        },
+        { new: true },
+      );
+      if (!lesson) return res.status(404).json({ message: 'Нет такого урока' });
+
+      res.json(lesson);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({
+        message: 'Не удалось обновить прогресс',
       });
     }
   }
@@ -107,14 +133,14 @@ class LessonController {
 
   async getLessonOne(req, res) {
     try {
-      const { id } = req.params;
-      const lesson = await Lesson.findOne({ _id: id });
+      const lesson = await Lesson.findOne({ _id: req.params.id });
       const module = await Module.findOne({ _id: lesson.moduleId });
       const cours = await Cours.findOne({ _id: module.coursId });
 
       const response = {
         lessonTitle: lesson.title,
         youtubeVideoId: lesson.youtubeVideoId,
+        lessonNumber: lesson.lessonNumber,
         moduleId: lesson.moduleId,
         moduleTitle: module.title,
         coursId: module.coursId,

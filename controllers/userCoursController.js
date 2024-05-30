@@ -22,17 +22,17 @@ class UserCoursController {
           port: 465,
           secure: true,
           auth: {
-            user: 'kadet_2003@list.ru',
-            pass: 'RPQZ1D9urSixcGZEhu3k',
+            user: 'kodemania@mail.ru',
+            pass: 'TXw4ZmrecDAXpu95Z15V',
           },
         },
-        { from: '<kadet_2003@list.ru>' },
+        { from: '<kodemania@mail.ru>' },
       );
 
       const emailObject = {
         // from: '"Node js" <nodejs@example.com>',
         to: user.email,
-        subject: '"Кодемания" Письмо о покупке курса',
+        subject: 'Письмо о покупке курса',
         text: 'Покупка курса',
         html: ` <div style=" font-size: 20px;
         display: flex;
@@ -40,11 +40,14 @@ class UserCoursController {
         align-items: center">
         <div>
           <hr />
-          <p><b style="font-size: 20px">Привет, ${user.username}</b></p>
-          <p style="font-size: 16px">
-            Вы получил это электронное письмо, потому что вы приобрели курс по ${cours.title}. <br />
-            Жалем от нашей команды быстрее его начать и достичь с помощью него тех целей, которые вы перед собой ставили.
+          <p><b style="font-size: 20px">Дорогой ученик, ${user.username}</b></p>
+          <p style="font-size: 16px; margin-bottom: 15px">
+          Спасибо за покупку курса ${cours.title} в нашей онлайн школе! Мы рады приветствовать вас в нашем образовательном сообществе.
           </p>
+          <p style="font-size: 16px; margin-bottom: 15px;">Мы уверены, что выбранный вами курс станет полезным и интересным для вас. <br/>
+          Наши преподаватели постараются сделать процесс обучения максимально эффективным и увлекательным.</p>
+          <p style="font-size: 16px; margin-bottom: 15pxr">Желаем вам удачи и успехов в обучении!</p>
+          <p style="font-size: 16px;"> С уважением, Команда "Кодемания"</p>
           <hr />
         </div>
       </div>`,
