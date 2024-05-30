@@ -57,7 +57,7 @@ class CoursController {
 
       res.json(post);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       return res.status(500).json({
         message: 'Не удалось изменить курс',
       });
@@ -71,7 +71,7 @@ class CoursController {
 
       res.status(200).json(modules);
     } catch (e) {
-      console.log(e);
+      console.error(e);
       return res.status(500).json({
         message: 'Не удалось получить курс',
       });
@@ -94,15 +94,32 @@ class CoursController {
   }
 
   
+  // async getCoursesUserAdmin(req, res) {
+  //   try {
+  //     const userId = req.params.id;
+  //     const userCours = await UserCours.find({ userId });
+  //     const courdId = userCours.map((item) => item.coursId);
+  //     // const cours = await Cours.find({ _id: courdId });
+
+  //     res.status(200).json(courdId);
+  //   } catch (e) {
+  //     return res.status(500).json({
+  //       message: 'Не удалось получить курсы',
+  //     });
+  //   }
+  // }
+
   async getCoursesUserAdmin(req, res) {
     try {
       const userId = req.params.id;
-      const userCours = await UserCours.find({ userId });
-      const courdId = userCours.map((item) => item.coursId);
+      console.log(userId)
+      const userCours = await UserCours.find({ userId: req.params.id });
+      console.log(userCours)
+      // const courdId = userCours.map((item) => item.coursId);
       // const cours = await Cours.find({ _id: courdId });
 
-      res.status(200).json(courdId);
-      // res.status(200).json({message: "Норм"})
+      // res.status(200).json(courdId);
+
     } catch (e) {
       return res.status(500).json({
         message: 'Не удалось получить курсы',

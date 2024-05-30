@@ -210,13 +210,12 @@ class AuthController {
 
       res.status(201).json('');
     } catch (e) {
-      console.log(e);
+      console.error(e);
       res.status(500).json({ message: 'Произошла ошибка на сервере, попробуйте позже' });
     }
   }
 
   async reset(req, res) {
-    console.log('dsfdsf');
     try {
       const requestId = req.params.requestId;
       const body = req.body;
@@ -250,7 +249,6 @@ class AuthController {
 
   async removeUser(req, res) {
     try {
-      console.log(req.params.userId);
       const userId = req.params.userId;
 
       // const user = await User.findOneAndDelete({

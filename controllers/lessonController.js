@@ -67,7 +67,7 @@ class LessonController {
 
       res.json(lesson);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       return res.status(500).json({
         message: 'Не удалось обновить прогресс',
       });
@@ -93,7 +93,7 @@ class LessonController {
 
       res.json(lesson);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       return res.status(500).json({
         message: 'Не удалось обновить прогресс',
       });
@@ -124,7 +124,7 @@ class LessonController {
 
       return res.status(200).json(response);
     } catch (e) {
-      console.log(e);
+      console.error(e);
       return res.status(500).json({
         message: 'Не удалось получить уроки',
       });
@@ -148,7 +148,7 @@ class LessonController {
       };
       res.status(200).json(response);
     } catch (e) {
-      console.log(e);
+      console.error(e);
       return res.status(500).json({
         message: 'Не удалось получить урок',
       });

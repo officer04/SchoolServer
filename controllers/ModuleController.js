@@ -66,7 +66,6 @@ class ModuleController {
     try {
       const moduleId = req.params.id;
       const module = await Module.findOne({ _id: moduleId });
-      console.log(module);
       res.status(200).json(module);
     } catch (e) {
       console.log(e);

@@ -12,7 +12,21 @@ const cors = require('cors');
 const PORT = process.env.PORT || 5000;
 
 const app = express();
-app.use(cors({ origin: '*', methods: '*', allowedHeaders: '*' }));
+
+const allowedOrigins = [
+  'http://myreactapp.test-handyhost.ru',
+  'http://egor-ermakov.ru',
+  'http://www.egor-ermakov.ru',
+  'http://localhost:3000'
+];
+
+// Настройка CORS для нескольких доменов
+const corsOptions = {
+  origin: allowedOrigins
+};
+
+app.use(cors(corsOptions));
+
 
 app.use(express.json());
 app.use('/auth', authRouter);

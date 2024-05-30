@@ -10,11 +10,11 @@ class UserCoursController {
         userId: req.body.userId,
         coursId: req.body.coursId,
       });
+      await doc.save();
 
       const user = await User.findOne({ _id: req.body.userId });
       const cours = await Cours.findOne({_id: req.body.coursId})
-
-      await doc.save();
+      
 
       let transporter = nodemailer.createTransport(
         {
