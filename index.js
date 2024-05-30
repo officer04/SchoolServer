@@ -8,7 +8,7 @@ const moduleRouter = require('./routes/ModuleRouter');
 const lessonRoute = require('./routes/lessonRouter');
 const userCoursRouter = require('./routes/userCoursRouter');
 
-const cors = require('cors');
+// const cors = require('cors');
 const PORT = process.env.PORT || 5000;
 
 const app = express();
@@ -21,12 +21,17 @@ const allowedOrigins = [
 ];
 
 // Настройка CORS для нескольких доменов
-const corsOptions = {
-  origin: allowedOrigins
-};
+// const corsOptions = {
+//   origin: allowedOrigins
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
+app.all('*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://myreactapp.test-handyhost.ru");
+  // res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 
 app.use(express.json());
 app.use('/auth', authRouter);
@@ -52,5 +57,6 @@ const start = async () => {
     console.log(e);
   }
 };
+
 
 start();
