@@ -26,6 +26,8 @@ app.all('*', function(req, res, next) {
   next();
 });
 
+// app.use(cors())
+
 app.use(express.json());
 app.use('/auth', authRouter);
 app.use('/price', priceRouter);
@@ -36,7 +38,7 @@ app.use('/lesson', lessonRoute);
 app.use('/user', userCoursRouter);
 app.get('/hello', (req, res) => {
   var ip = req.headers['x-forwarded-for'];
-  console.log(`Request from ${ip}`);
+  // console.log(`Request from ${ip}`);
   return res.send('Hello!');
 });
 
