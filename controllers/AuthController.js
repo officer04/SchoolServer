@@ -81,6 +81,7 @@ class AuthController {
 
       return res.status(201).json({ token });
     } catch (e) {
+      console.error(e)
       res.status(400).json({ message: 'Registration error' });
     }
   }
