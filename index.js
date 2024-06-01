@@ -21,7 +21,7 @@ const app = express();
 // app.use(cors(corsOptions));
 
 app.all('*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://myreactapp.test-handyhost.ru");
+  res.header("Access-Control-Allow-Origin", "http://code-mania.ru");
   res.header("Access-Control-Allow-Headers", "*");
   res.header("Access-Control-Allow-Methods", "*");
   next();
