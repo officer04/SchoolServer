@@ -41,6 +41,19 @@ class AuthController {
       await user.save();
       const token = generateAccessToken(user._id, user.role, user.username, user.email);
 
+      // let transporter = nodemailer.createTransport(
+      //   {
+      //     host: 'mail.code-mania.ru',
+      //     port: 25,
+      //     secure: false,
+      //     auth: {
+      //       user: 'manager@code-mania.ru',
+      //       pass: 'qwerty123',
+      //     },
+      //   },
+      //   { from: '<manager@code-mania.ru>' },
+      // );
+
       let transporter = nodemailer.createTransport(
         {
           host: 'smtp.mail.ru',
@@ -77,7 +90,13 @@ class AuthController {
       </div>`,
       };
 
-      await transporter.sendMail(emailObject);
+      await transporter.sendMail(emailObject, (error, info) => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
 
       return res.status(201).json({ token });
     } catch (e) {
@@ -197,7 +216,7 @@ class AuthController {
           <p><b style="font-size: 20px">Дорогой студент, ${user.username}</b></p>
           <p style="font-size: 16px">
           Получили запрос на восстановление пароля от вашего аккаунта в нашей онлайн школе. <br/> 
-          Для восстановления доступа к вашему аккаунту, пожалуйста, перейдите по следующей ссылке: <a href="http://localhost:3000/auth/reset-password/${doc._id}">восстановление</a>.
+          Для восстановления доступа к вашему аккаунту, пожалуйста, перейдите по следующей ссылке: <a href="https://code-mania.ru/auth/reset-password/${doc._id}">восстановление</a>.
           </p>
           <p style="font-size: 16px; margin-bottom: 15px;">Если вы не запрашивали восстановление пароля, пожалуйста, проигнорируйте это сообщение. <br/>
            Как меру безопасности рекомендуем также изменить пароль после восстановления доступа к аккаунту.</p>
