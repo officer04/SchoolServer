@@ -8,7 +8,7 @@ const moduleRouter = require('./routes/ModuleRouter');
 const lessonRoute = require('./routes/lessonRouter');
 const userCoursRouter = require('./routes/userCoursRouter');
 
-const cors = require('cors');
+// const cors = require('cors');
 const PORT = process.env.PORT || 5000;
 
 const app = express();
@@ -20,14 +20,14 @@ const app = express();
 
 // app.use(cors(corsOptions));
 
-// app.all('*', function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "https://code-mania.ru");
-//   res.header("Access-Control-Allow-Headers", "*");
-//   res.header("Access-Control-Allow-Methods", "*");
-//   next();
-// });
+app.all('*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "https://code-mania.ru");
+  res.header("Access-Control-Allow-Headers", "*");
+  res.header("Access-Control-Allow-Methods", "*");
+  next();
+});
 
-app.use(cors())
+// app.use(cors())
 
 app.use(express.json());
 app.use('/auth', authRouter);
