@@ -7,6 +7,7 @@ class CoursController {
       const doc = new Cours({
         title: req.body.title,
         description: req.body.description,
+        price: req.body.price,
         imgUrl: req.body.imgUrl,
       });
 
@@ -49,6 +50,7 @@ class CoursController {
         {
           title: req.body.title,
           description: req.body.description,
+          price: req.body.price,
           imgUrl: req.body.imgUrl,
         },
         { new: true },

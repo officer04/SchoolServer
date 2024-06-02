@@ -41,31 +41,34 @@ class AuthController {
       await user.save();
       const token = generateAccessToken(user._id, user.role, user.username, user.email);
 
-      // let transporter = nodemailer.createTransport(
-      //   {
-      //     host: 'mail.code-mania.ru',
-      //     port: 25,
-      //     secure: false,
-      //     auth: {
-      //       user: 'manager@code-mania.ru',
-      //       pass: 'qwerty123',
-      //     },
-      //   },
-      //   { from: '<manager@code-mania.ru>' },
-      // );
-
       let transporter = nodemailer.createTransport(
         {
-          host: 'smtp.mail.ru',
-          port: 465,
-          secure: true,
+          host: 'mail.code-mania.ru',
+          port: 25,
+          secure: false,
           auth: {
-            user: 'kodemania@mail.ru',
-            pass: 'TXw4ZmrecDAXpu95Z15V',
+            user: 'manager@code-mania.ru',
+            pass: 'qwerty123',
           },
+          tls: {
+            rejectUnauthorized: false     // Отключаем проверку сертификата
+          }
         },
-        { from: '<kodemania@mail.ru>' },
+        { from: '<manager@code-mania.ru>' },
       );
+
+      // let transporter = nodemailer.createTransport(
+      //   {
+      //     host: 'smtp.mail.ru',
+      //     port: 465,
+      //     secure: true,
+      //     auth: {
+      //       user: 'kodemania@mail.ru',
+      //       pass: 'TXw4ZmrecDAXpu95Z15V',
+      //     },
+      //   },
+      //   { from: '<kodemania@mail.ru>' },
+      // );
 
       const emailObject = {
         // from: '"Node js" <nodejs@example.com>',
@@ -189,17 +192,33 @@ class AuthController {
 
       await doc.save();
 
+      // let transporter = nodemailer.createTransport(
+      //   {
+      //     host: 'smtp.mail.ru',
+      //     port: 465,
+      //     secure: true,
+      //     auth: {
+      //       user: 'kodemania@mail.ru',
+      //       pass: 'TXw4ZmrecDAXpu95Z15V',
+      //     },
+      //   },
+      //   { from: '<kodemania@mail.ru>' },
+      // );
+
       let transporter = nodemailer.createTransport(
         {
-          host: 'smtp.mail.ru',
-          port: 465,
-          secure: true,
+          host: 'mail.code-mania.ru',
+          port: 25,
+          secure: false,
           auth: {
-            user: 'kodemania@mail.ru',
-            pass: 'TXw4ZmrecDAXpu95Z15V',
+            user: 'manager@code-mania.ru',
+            pass: 'qwerty123',
           },
+          tls: {
+            rejectUnauthorized: false     // Отключаем проверку сертификата
+          }
         },
-        { from: '<kodemania@mail.ru>' },
+        { from: '<manager@code-mania.ru>' },
       );
 
       const emailObject = {

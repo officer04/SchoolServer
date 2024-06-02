@@ -16,17 +16,33 @@ class UserCoursController {
       const cours = await Cours.findOne({_id: req.body.coursId})
       
 
+      // let transporter = nodemailer.createTransport(
+      //   {
+      //     host: 'smtp.mail.ru',
+      //     port: 465,
+      //     secure: true,
+      //     auth: {
+      //       user: 'kodemania@mail.ru',
+      //       pass: 'TXw4ZmrecDAXpu95Z15V',
+      //     },
+      //   },
+      //   { from: '<kodemania@mail.ru>' },
+      // );
+
       let transporter = nodemailer.createTransport(
         {
-          host: 'smtp.mail.ru',
-          port: 465,
-          secure: true,
+          host: 'mail.code-mania.ru',
+          port: 25,
+          secure: false,
           auth: {
-            user: 'kodemania@mail.ru',
-            pass: 'TXw4ZmrecDAXpu95Z15V',
+            user: 'manager@code-mania.ru',
+            pass: 'qwerty123',
           },
+          tls: {
+            rejectUnauthorized: false     // Отключаем проверку сертификата
+          }
         },
-        { from: '<kodemania@mail.ru>' },
+        { from: '<manager@code-mania.ru>' },
       );
 
       const emailObject = {
