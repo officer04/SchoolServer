@@ -16,18 +16,18 @@ class UserCoursController {
       const cours = await Cours.findOne({_id: req.body.coursId})
       
 
-      let transporter = nodemailer.createTransport(
-        {
-          host: 'smtp.mail.ru',
-          port: 465,
-          secure: true,
-          auth: {
-            user: 'kodemania@mail.ru',
-            pass: 'TXw4ZmrecDAXpu95Z15V',
-          },
-        },
-        { from: '<kodemania@mail.ru>' },
-      );
+      // let transporter = nodemailer.createTransport(
+      //   {
+      //     host: 'smtp.mail.ru',
+      //     port: 465,
+      //     secure: true,
+      //     auth: {
+      //       user: 'kodemania@mail.ru',
+      //       pass: 'TXw4ZmrecDAXpu95Z15V',
+      //     },
+      //   },
+      //   { from: '<kodemania@mail.ru>' },
+      // );
 
       // let transporter = nodemailer.createTransport(
       //   {
@@ -45,31 +45,31 @@ class UserCoursController {
       //   { from: '<manager@code-mania.ru>' },
       // );
 
-      const emailObject = {
-        // from: '"Node js" <nodejs@example.com>',
-        to: user.email,
-        subject: 'Письмо о покупке курса',
-        text: 'Покупка курса',
-        html: ` <div style=" font-size: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center">
-        <div>
-          <hr />
-          <p><b style="font-size: 20px">Дорогой ученик, ${user.username}</b></p>
-          <p style="font-size: 16px; margin-bottom: 15px">
-          Спасибо за покупку курса ${cours.title} в нашей онлайн школе! Мы рады приветствовать вас в нашем образовательном сообществе.
-          </p>
-          <p style="font-size: 16px; margin-bottom: 15px;">Мы уверены, что выбранный вами курс станет полезным и интересным для вас. <br/>
-          Наши преподаватели постараются сделать процесс обучения максимально эффективным и увлекательным.</p>
-          <p style="font-size: 16px; margin-bottom: 15pxr">Желаем вам удачи и успехов в обучении!</p>
-          <p style="font-size: 16px;"> С уважением, Команда "Кодемания"</p>
-          <hr />
-        </div>
-      </div>`,
-      };
+      // const emailObject = {
+      //   // from: '"Node js" <nodejs@example.com>',
+      //   to: user.email,
+      //   subject: 'Письмо о покупке курса',
+      //   text: 'Покупка курса',
+      //   html: ` <div style=" font-size: 20px;
+      //   display: flex;
+      //   justify-content: center;
+      //   align-items: center">
+      //   <div>
+      //     <hr />
+      //     <p><b style="font-size: 20px">Дорогой ученик, ${user.username}</b></p>
+      //     <p style="font-size: 16px; margin-bottom: 15px">
+      //     Спасибо за покупку курса ${cours.title} в нашей онлайн школе! Мы рады приветствовать вас в нашем образовательном сообществе.
+      //     </p>
+      //     <p style="font-size: 16px; margin-bottom: 15px;">Мы уверены, что выбранный вами курс станет полезным и интересным для вас. <br/>
+      //     Наши преподаватели постараются сделать процесс обучения максимально эффективным и увлекательным.</p>
+      //     <p style="font-size: 16px; margin-bottom: 15pxr">Желаем вам удачи и успехов в обучении!</p>
+      //     <p style="font-size: 16px;"> С уважением, Команда "Кодемания"</p>
+      //     <hr />
+      //   </div>
+      // </div>`,
+      // };
 
-      await transporter.sendMail(emailObject);
+      // await transporter.sendMail(emailObject);
 
       return res.status(201).end();
     } catch (err) {
@@ -81,15 +81,15 @@ class UserCoursController {
 
   async remove(req, res) {
     try {
-      const postId = req.params.id;
+      const userId = req.body.userId;
+      const coursId = req.body.coursId;
 
       const lesson = await UserCours.findOneAndDelete({
-        _id: postId,
+        userId: userId,
+        coursId: coursId
       });
-
       if (!lesson) return res.status(404).json({ message: 'Нет такого курса' });
-
-      res.status(204).end();
+      return res.status(204).end();
     } catch (err) {
       return res.status(500).json({
         message: 'Не удалось получить статьи',

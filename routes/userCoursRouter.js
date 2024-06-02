@@ -5,7 +5,7 @@ const roleMiddleware = require('../middleware/RoleMiddleware');
 const controller = require('../controllers/userCoursController');
 
 router.post('/', controller.create);
-router.delete('/:id', controller.remove);
+router.delete('', controller.remove);
 router.get('', authMiddleware, controller.getAll);
 // router.get('/:id', controller.getLesson);
 
