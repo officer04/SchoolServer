@@ -95,7 +95,6 @@ class CoursController {
     }
   }
 
-  
   // async getCoursesUserAdmin(req, res) {
   //   try {
   //     const userId = req.params.id;
@@ -113,15 +112,22 @@ class CoursController {
 
   async getCoursesUserAdmin(req, res) {
     try {
-      const userId = req.params.id;
-      console.log(userId)
-      const userCours = await UserCours.find({ userId: req.params.id });
-      console.log(userCours)
-      // const courdId = userCours.map((item) => item.coursId);
-      // const cours = await Cours.find({ _id: courdId });
-
-      // res.status(200).json(courdId);
-
+      const userCourses = await UserCours.find({ userId: req.params.id }); // все которые купил user
+      const courses = await Cours.find(); // all courses
+      console.log(courses);
+      const response = []
+      for (let course of courses ) {
+        const responseItem = {}
+        
+        responseItem._id = course._id.toString();
+        responseItem.title = course.title
+        responseItem.description = course.description
+        responseItem.purchased = userCourses.some((item) => item.coursId.equals(course._id))
+        
+        response.push(responseItem)
+      }
+     
+      return res.status(200).json(response);
     } catch (e) {
       return res.status(500).json({
         message: 'Не удалось получить курсы',
