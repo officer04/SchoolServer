@@ -67,7 +67,7 @@ class AuthController {
             pass: 'TXw4ZmrecDAXpu95Z15V',
           },
         },
-        { from: '<kodemania@mail.ru>' },
+        { from: "<kodemania@mail.ru>" },
       );
 
       const emailObject = {
